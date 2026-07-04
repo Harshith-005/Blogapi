@@ -1,0 +1,27 @@
+package com.harshith.blog.domain.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
+
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class PostDto {
+    private UUID id;
+    private String title;
+    private String content;
+    private AuthorDto author;
+    private CategoryDto category;
+    private Set<TagResponse> tags;
+    private Integer readingTime;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+}

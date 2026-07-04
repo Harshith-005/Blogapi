@@ -1,6 +1,7 @@
 package com.harshith.blog.domain.controller;
 
 import com.harshith.blog.domain.dto.ApiErrorResponse;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,17 @@ public class ErrorController {
                 .build();
 
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
+    public ResponseEntity<ApiErrorResponse> entityNotFoundException(
+            EntityNotFoundException e) {
+
+        ApiErrorResponse response = ApiErrorResponse.builder()
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
 
