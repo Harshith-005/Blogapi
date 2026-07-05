@@ -56,6 +56,7 @@ public class ErrorController {
 
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
+    @ExceptionHandler(BadCredentialsException.class)
 
     public ResponseEntity<ApiErrorResponse> handleBadCredentialsException(
             BadCredentialsException e) {
@@ -70,6 +71,7 @@ public class ErrorController {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> entityNotFoundException(
             EntityNotFoundException e) {
 

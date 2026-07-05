@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/vq/tag")
+@RequestMapping(path = "/api/vq/tags")
 @RequiredArgsConstructor
 public class TagController {
 

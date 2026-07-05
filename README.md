@@ -1,4 +1,4 @@
-﻿# Blog API
+﻿ # Blog API
 
 A Spring Boot based blog platform providing a simple REST API for managing posts, categories and tags with JWT-based authentication. Designed for easy local development and extension, it uses Spring Data JPA for persistence and MapStruct for DTO mapping.
 
