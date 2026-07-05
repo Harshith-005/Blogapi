@@ -1,5 +1,6 @@
 package com.harshith.blog.domain.dto;
 
+import com.harshith.blog.domain.PostStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +25,5 @@ public class PostDto {
     private Integer readingTime;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private PostStatus  status;
 }
