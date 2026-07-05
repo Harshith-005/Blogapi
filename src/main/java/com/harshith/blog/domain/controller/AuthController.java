@@ -1,5 +1,6 @@
 package com.harshith.blog.domain.controller;
-import com.harshith.blog.domain.dto.AuthResponse;
+
+import com.harshith.blog.domain.dto.AuthResponse;
 import com.harshith.blog.domain.dto.LoginRequest;
 import com.harshith.blog.domain.dto.RegisterRequest;
 import com.harshith.blog.domain.entity.User;
@@ -16,29 +17,45 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthenticationService authenticationService;
     private final UserService userService;
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> Authenticate(@RequestBody LoginRequest loginRequest) {
-        UserDetails userDetails = authenticationService.Authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+
+//    @PostMapping("/login")
+//    public ResponseEntity<AuthResponse> Authenticate(@RequestBody LoginRequest loginRequest) {
+//        UserDetails userDetails = authenticationService.Authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+//        String token = authenticationService.generateToken(userDetails);
+//        AuthResponse response = AuthResponse.builder()
+//                .token(token)
+//                .expiresIn(86400)
+//                .build();
+//        return ResponseEntity.ok(response);
+//    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
+
+        UserDetails userDetails = authenticationService.Authenticate(
+                loginRequest.getEmail(),
+                loginRequest.getPassword());
+
         String token = authenticationService.generateToken(userDetails);
+
         AuthResponse response = AuthResponse.builder()
                 .token(token)
                 .expiresIn(86400)
                 .build();
+
         return ResponseEntity.ok(response);
     }
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+
         User user = new User();
+        user.setName(registerRequest.getName());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(registerRequest.getPassword());
-        user.setName(registerRequest.getName());
-        User created = userService.createUser(user);
-        UserDetails userDetails = authenticationService.Authenticate(registerRequest.getEmail(), registerRequest.getPassword());
-        String token = authenticationService.generateToken(userDetails);
-        AuthResponse response = AuthResponse.builder()
-                .token(token)
-                .expiresIn(86400)
-                .build();
-        return ResponseEntity.ok(response);
+
+        userService.createUser(user);
+
+        return ResponseEntity.ok("User registered successfully");
     }
 }

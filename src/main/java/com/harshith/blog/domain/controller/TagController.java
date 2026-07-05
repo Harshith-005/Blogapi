@@ -16,19 +16,22 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "/api/vq/tags")
+@RequestMapping(path = "/api/v1/tags")
 @RequiredArgsConstructor
 public class TagController {
 
     private final TagService tagService;
     private final TagMapper tagMapper;
 
-    @Generated
-    public ResponseEntity<TagResponse> getAllTags()
-    {
+    @GetMapping
+    public ResponseEntity<List<TagResponse>> getAllTags() {
         List<Tag> tags = tagService.getAllTags();
-        List<TagResponse> tagResponseList = tags.stream().map(tagMapper::toTagResponse).toList();
-        return ResponseEntity.ok((TagResponse) tagResponseList);
+        List<TagResponse> responses =
+                tags.stream()
+                        .map(tagMapper::toTagResponse)
+                        .toList();
+
+        return ResponseEntity.ok(responses);
     }
 
     @PostMapping()

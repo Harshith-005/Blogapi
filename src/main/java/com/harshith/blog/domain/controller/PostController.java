@@ -38,12 +38,18 @@ public class PostController {
 
     }
 
-    @GetMapping(path = "/drafts")
-    public ResponseEntity<List<PostDto>> getDraft(@RequestAttribute UUID uuid)
-    {
-        User loggedInUser = userService.getUserByid(uuid);
-        List<Post> draftPost =  postService.getDraftPosts(loggedInUser);
-        List<PostDto> postDtos = draftPost.stream().map(postMapper::toDto).toList();
+    @GetMapping("/drafts")
+    public ResponseEntity<List<PostDto>> getDraft(
+            @RequestAttribute("userId") UUID userId) {
+
+        User loggedInUser = userService.getUserByid(userId);
+
+        List<Post> draftPosts = postService.getDraftPosts(loggedInUser);
+
+        List<PostDto> postDtos = draftPosts.stream()
+                .map(postMapper::toDto)
+                .toList();
+
         return ResponseEntity.ok(postDtos);
     }
 

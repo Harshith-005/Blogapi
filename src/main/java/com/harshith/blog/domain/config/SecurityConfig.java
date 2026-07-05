@@ -33,11 +33,7 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository)
-    {
-        return new BlogUserDetailsService(userRepository);
-    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {

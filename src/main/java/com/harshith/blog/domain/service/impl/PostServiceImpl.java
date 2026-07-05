@@ -89,7 +89,7 @@ public class PostServiceImpl implements PostService {
 
         post.setAuthor(user);
         post.setReadingTime(calculateReadingTime(request.getContent()));
-
+        System.out.println("Status = " + request.getStatus());
         return postRepository.save(post);
     }
 
